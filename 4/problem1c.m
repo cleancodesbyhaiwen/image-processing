@@ -1,0 +1,29 @@
+clc;
+clear;
+
+mu_init = [1.5, 4];
+
+pi_init = [0.5, 1];
+
+pi = [0.3 0.7];
+mu = [0 3];
+sigma = 0.25;
+
+%gamma(1) = pi(1)*(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(1)).^2./(2*sigma.^2)) ...
+%./((pi(1)*(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(1)).^2./(2*sigma.^2)))+(pi(2)* ...
+%(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(2)).^2./(2*sigma.^2))));
+
+%gamma(2) = pi(2)*(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(2)).^2./(2*sigma.^2))./ ...
+%((pi(1)*(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(2)).^2./(2*sigma.^2)))+(pi(2)* ...
+%(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(2)).^2./(2*sigma.^2))));
+
+gamma = 0;
+for i=1:10000
+    xn = points(i,1);
+    gamma = gamma + (pi(1)*(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(1)).^2./(2*sigma.^2)) ...
+    ./((pi(1)*(1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(1)).^2./(2*sigma.^2)))+(pi(2)* ...
+    (1./(sigma*sqrt(2*pi)))*exp(-(xn-mu(2)).^2./(2*sigma.^2)))));
+end
+
+pi = gamma / 10000;
+

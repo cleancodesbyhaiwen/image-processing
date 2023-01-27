@@ -1,0 +1,42 @@
+
+
+x = imread("LENNA.jpg");
+
+subplot(2,2,1);
+figure;
+imshow(x);
+
+[col,row] = size(x);
+x = reshape(x, [col*row, 1]);
+x = rescale(x);  % This is the column stack of the original image
+
+alpha = 100;
+Y = poissrnd(alpha*x)./alpha;
+Y = reshape(Y, [col,row]);
+
+subplot(2,2,1);
+figure;
+imshow(Y);
+
+Z = sqrt(Y + (3/8));
+Z = Z./max(Z(:));
+
+subplot(2,2,1);
+figure;
+imshow(Z);
+
+sgima = sqrt(0.25);
+maxZ = max(Z(:));
+minZ = min(Z(:));
+Z = (Z-minZ) / (maxZ-minZ);
+sigma =(maxZ-minZ);
+Zhat = BM3D(Z, sigma);
+Zhat = Zhat*(maxZ-minZ)+minZ;
+
+figure;
+imshow(Zhat);
+
+Yhat = Zhat.^2 - (3/8);
+
+figure;
+imshow(Yhat);

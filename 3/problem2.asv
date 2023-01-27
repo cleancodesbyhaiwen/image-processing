@@ -1,0 +1,23 @@
+
+
+
+x = zeros(500,500);
+
+for i = 1:500
+    for j = 1:500
+        x(i,j) = 1;
+    end
+end 
+
+imshow(x)
+
+
+
+theta = 1;
+
+for i = 1:1000
+    Y = poissrnd(theta,500);
+    
+
+
+theta = logspace(0,3,1000);
